@@ -1,0 +1,12 @@
+./infra/live/dev/vpc/.terragrunt-cache
+./infra/live/dev/eks/.terragrunt-cache
+./infra/live/prod/vpc/.terragrunt-cache
+./infra/live/prod/eks/.terragrunt-cache
+./infra/live/dev/eks/.terraform
+./infra/live/prod/eks/.terraform
+./infra/live/dev/vpc/.terraform
+./infra/live/prod/vpc/.terraform
+./infra/live/dev/eks/.terraform.lock.hcl
+./infra/live/prod/eks/.terraform.lock.hcl
+./infra/live/dev/vpc/.terraform.lock.hcl
+./infra/live/prod/vpc/.terraform.lock.hcl
