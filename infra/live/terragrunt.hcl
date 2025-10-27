@@ -4,7 +4,8 @@ locals {
   rel_path_raw = path_relative_to_include()
   rel_path     = trim(replace(local.rel_path_raw, "\\", "/"), "/")
   environment = split(local.rel_path, "/")[0] 
-  account_root_user = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+  github_repo = "project_circle_assignment"   # change your github repo here
+  aws_account_id = "505825010815"
 }
 
 remote_state {
@@ -19,8 +20,9 @@ remote_state {
     bucket       = "tf-state-${local.project}"
     key          = "${local.rel_path}/terraform.tfstate"
     region       = local.aws_region
+    dynamodb_table = "project-circle-assistant-terraform-lock"
     encrypt      = true
-    use_lockfile = true
+
   }
 }
 
@@ -50,5 +52,6 @@ inputs = {
     Project     = local.project
     Environment = local.environment
     ManagedBy   = "Terragrunt"
+
   }
 }

@@ -10,7 +10,7 @@ locals {
     env     = "prod"
     project = include.root.locals.project
     tags = {
-     project     = local.project
+     project     = include.root.locals.project
      environment = local.env
      
     }
@@ -19,7 +19,7 @@ locals {
 inputs = {
     vpc_cidr = "10.0.0.0/16"
     num_of_azs = 3
-    environment = "prod"
+    environment = local.env
     common_tags = local.tags
-    project_name = local.project
+    project_name = include.root.locals.project
 }

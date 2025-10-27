@@ -1,11 +1,13 @@
 module "ecr" {
-   for_each = toset(var.ecr_names) 
+  source  = "terraform-aws-modules/ecr/aws"
+  version = "~> 2.0"
+  
+  for_each = toset(var.ecr_names) 
 
-  source = "terraform-aws-modules/ecr/aws"
 
   repository_name = each.key
 
-  repository_read_write_access_arns = [local.account_root_user]
+  repository_read_write_access_arns = [data.aws_caller_identity.current.arn]
   repository_lifecycle_policy = jsonencode({
     rules = [
       {

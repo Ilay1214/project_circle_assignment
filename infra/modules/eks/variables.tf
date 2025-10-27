@@ -1,6 +1,3 @@
-variable "kubernetes_version" {
-    type = string
-}
 variable "instance_types" {
     type = list(string)
 }
@@ -29,3 +26,13 @@ variable "api_public_cidrs" {
     type = list(string)
 }
 
+variable "environment" {
+    type = string
+}
+variable "public_subnets" {
+    type = list(string)
+}
+
+variable "eso_policy_arn" {
+    type = string
+}
