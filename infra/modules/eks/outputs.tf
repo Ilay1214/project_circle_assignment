@@ -11,4 +11,5 @@ output "cluster_name" {
 }
 output "cluster_auth_token" {
     value = data.aws_eks_cluster_auth.this.token
+    sensitive = true
 }

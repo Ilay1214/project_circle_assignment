@@ -1,5 +1,5 @@
 resource "aws_iam_role" "github_oidc_role" {
-  name               = "${var.environment}GitHubOidcRole"
+  name               = "${local.env_sanitized}GitHubOidcRole"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -12,7 +12,7 @@ resource "aws_iam_role" "github_oidc_role" {
         }
         Condition = {
           StringEquals = {
-            "token.actions.githubusercontent.com:aud" = [
+            "token.actions.github usercontent.com:aud" = [
               "sts.amazonaws.com"
             ]
           }

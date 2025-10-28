@@ -38,7 +38,7 @@ locals {
             "curl -s https://checkip.amazonaws.com"
         ))
 
-    api_public_cidrs = [local.my_ip]
+    api_public_cidrs = ["${local.my_ip}/32"]
 }
 
 inputs = {

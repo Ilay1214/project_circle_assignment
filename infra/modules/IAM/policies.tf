@@ -12,13 +12,13 @@ data "aws_iam_policy_document" "eso" {
 }
 
 resource "aws_iam_policy" "eso" {
-  name   = "${var.environment}-eso-read-secrets"
+  name   = "${local.env_sanitized}-eso-read-secrets"
   policy = data.aws_iam_policy_document.eso.json
 }
 
 
 resource "aws_iam_policy" "github_oidc_ecr_policy" {
-  name        = "${var.environment}GitHubOidcEcrPolicy"
+  name        = "${local.env_sanitized}GitHubOidcEcrPolicy"
   description = "Policy to allow GitHub Actions to push to ECR"
   policy      = jsonencode({
     Version = "2012-10-17"

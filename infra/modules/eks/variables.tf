@@ -29,10 +29,11 @@ variable "api_public_cidrs" {
 variable "environment" {
     type = string
 }
-variable "public_subnets" {
-    type = list(string)
-}
+
 
 variable "eso_policy_arn" {
+    type = string
+}
+variable "kubernetes_version" {
     type = string
 }
