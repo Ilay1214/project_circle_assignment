@@ -4,6 +4,7 @@ module "eks" {
 
   name = "${var.environment}-eks-cluster"
 
+  kubernetes_version = var.kubernetes_version
 
   enable_irsa                          = true
   endpoint_public_access       = true
@@ -33,6 +34,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     "${var.environment}-eks-node-group" = {
+      kubernetes_version = var.kubernetes_version
       instance_types = var.instance_types
       min_size       = var.min_size
       max_size       = var.max_size

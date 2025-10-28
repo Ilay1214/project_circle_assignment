@@ -38,7 +38,7 @@ locals {
             "curl -s https://checkip.amazonaws.com"
         ))
 
-    api_public_cidrs = [local.my_ip]
+    api_public_cidrs = ["${local.my_ip}/32"]
 }
 
 inputs = {
@@ -47,6 +47,7 @@ inputs = {
     api_public_cidrs = local.api_public_cidrs
     eso_policy_arn = dependency.iam.outputs.eso_policy_arn
     environment = local.env
+    kubernetes_version = "1.32"
 
     #node group settings:
     instance_types = ["t3.medium"]
