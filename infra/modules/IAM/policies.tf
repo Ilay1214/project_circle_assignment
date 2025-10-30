@@ -1,15 +1,3 @@
-data "aws_iam_policy_document" "eso" {
-  statement {
-    sid     = "SecretsManagerRead"
-    effect  = "Allow"
-    actions = [
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret",
-      "secretsmanager:ListSecrets"
-    ]
-    resources = var.allowed_secret_arns  
-  }
-}
 
 resource "aws_iam_policy" "eso" {
   name   = "${local.env_sanitized}-eso-read-secrets"

@@ -47,7 +47,7 @@ inputs = {
     api_public_cidrs = local.api_public_cidrs
     eso_policy_arn = dependency.iam.outputs.eso_policy_arn
     environment = local.env
-    kubernetes_version = "1.32"
+    kubernetes_version = "1.31"
 
     #node group settings:
     instance_types = ["t3.medium"]
@@ -56,4 +56,13 @@ inputs = {
     desired_size = 1
     capacity_type = "SPOT"
     ami_type = "AL2_x86_64"
+}
+
+
+
+terraform { source = "${get_repo_root()}/infra/modules/external-secrets" }
+include "root" { path = find_in_parent_folders() }
+dependency "eks" { config_path = "../eks" }
+inputs = {
+  irsa_role_arn = dependency.eks.outputs.eso_irsa_role_arn
 }

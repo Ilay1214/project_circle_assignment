@@ -12,7 +12,7 @@ resource "aws_iam_role" "github_oidc_role" {
         }
         Condition = {
           StringEquals = {
-            "token.actions.github usercontent.com:aud" = [
+            "token.actions.githubusercontent.com:aud" = [
               "sts.amazonaws.com"
             ]
           }

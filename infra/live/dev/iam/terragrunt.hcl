@@ -1,5 +1,5 @@
 terraform {
-    source = "${get_repo_root()}/infra/modules/IAM"
+    source = "${get_repo_root()}/infra/modules/iam"
 }
 
 
@@ -15,7 +15,6 @@ locals {
 
 inputs = {
     environment = include.root.locals.environment
-    project_name = include.root.locals.project
     github_repo = include.root.locals.github_repo
 
     allowed_secret_arns = [

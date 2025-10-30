@@ -1,12 +1,11 @@
 terraform {
-    source = "${get_repo_root()}/infra/modules/IAM"
+    source = "${get_repo_root()}/infra/modules/iam"
 }
 
 include "root" {
-    path = find_in_parent_folders()
-    expose = true
+  path   = "${get_repo_root()}/infra/live/terragrunt.hcl"
+  expose = true
 }
-
 locals {
     region = include.root.locals.aws_region
     account_id = include.root.locals.aws_account_id

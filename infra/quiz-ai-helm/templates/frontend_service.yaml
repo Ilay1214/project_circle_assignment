@@ -1,0 +1,25 @@
+{{- if .Values.frontend.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ printf "%s-%s" .Release.Name "frontend" | trunc 63 | trimSuffix "-" }}
+  labels:
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  {{- with .Values.frontend.service.labels }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+  {{- with .Values.frontend.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.frontend.service.type }}
+  selector:
+    app.kubernetes.io/name: frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - name: http
+      port: {{ .Values.frontend.service.port }}
+      targetPort: {{ .Values.frontend.service.targetPort }}
+{{- end }}

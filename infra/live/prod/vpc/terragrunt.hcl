@@ -2,12 +2,11 @@ terraform {
     source = "${get_parent_terragrunt_dir()}/../modules/vpc"
 }
 include "root" {
-    path   = find_in_parent_folders()
-    expose = true
+  path   = "${get_repo_root()}/infra/live/terragrunt.hcl"
+  expose = true
 }
-
 locals {
-    env     = "prod"
+    env     = include.root.locals.environment
     project = include.root.locals.project
     tags = {
      project     = include.root.locals.project

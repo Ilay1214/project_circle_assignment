@@ -3,10 +3,9 @@ terraform {
 }
 
 include "root" {
-    path = find_in_parent_folders()
-    expose = true
+  path   = "${get_repo_root()}/infra/live/terragrunt.hcl"
+  expose = true
 }
-
 inputs = {
     environment = include.root.locals.environment
     project_name = include.root.locals.project
