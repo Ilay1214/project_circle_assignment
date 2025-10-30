@@ -2,8 +2,8 @@ terraform {
     source = "${get_repo_root()}/infra/modules/eks"
 }
 include "root" {
-    path = find_in_parent_folders()
-    expose = true
+  path   = "${get_repo_root()}/infra/live/terragrunt.hcl"
+  expose = true
 }
 
 dependency "vpc" {
@@ -12,14 +12,14 @@ dependency "vpc" {
         vpc_id          = "vpc-000000"
         private_subnets = ["subnet-0000001", "subnet-0000002"]
     }
-    mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+    mock_outputs_allowed_terraform_commands = ["validate", "plan","init"]
 }
 dependency "iam" {
     config_path = "../iam"
     mock_outputs = {
         eso_policy_arn = "arn:aws:iam::111122223333:policy/mock-eso"
     }
-    mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+    mock_outputs_allowed_terraform_commands = ["validate", "plan","init"]
 }
 
 locals {
@@ -30,14 +30,7 @@ locals {
      
     }
     is_windows = length(regexall("(?i)windows", get_env("OS", ""))) > 0
-    my_ip = local.is_windows ? chomp(run_cmd(
-            "powershell", "-NoProfile", "-Command",
-            "(Invoke-WebRequest -UseBasicParsing 'https://checkip.amazonaws.com').Content.Trim()"
-        )) : chomp(run_cmd(
-            "bash", "-lc",
-            "curl -s https://checkip.amazonaws.com"
-        ))
-
+    my_ip = chomp(run_cmd("curl", "-s", "https://checkip.amazonaws.com"))
     api_public_cidrs = ["${local.my_ip}/32"]
 }
 
@@ -47,8 +40,6 @@ inputs = {
     api_public_cidrs = local.api_public_cidrs
     eso_policy_arn = dependency.iam.outputs.eso_policy_arn
     environment = local.env
-    project_name = include.root.locals.project
-
 
     #node group settings:
     instance_types = ["t3.medium"]
@@ -57,4 +48,5 @@ inputs = {
     desired_size = 1
     capacity_type = "ON_DEMAND"
     ami_type = "AL2_x86_64"
+    kubernetes_version = "1.31"
 }

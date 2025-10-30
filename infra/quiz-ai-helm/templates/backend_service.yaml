@@ -1,0 +1,18 @@
+{{- if .Values.backend.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ printf "%s-%s" .Release.Name "application" | trunc 63 | trimSuffix "-" }}
+  labels:
+    app.kubernetes.io/name: application
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: {{ .Values.backend.service.type }}
+  selector:
+    app.kubernetes.io/name: application
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - name: http
+      port: {{ .Values.backend.service.port }}
+      targetPort: {{ .Values.backend.service.targetPort }}
+{{- end }}
