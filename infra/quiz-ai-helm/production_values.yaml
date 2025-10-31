@@ -71,16 +71,16 @@ backend:
       cpu: "500m"
 
   livenessProbe:
-    enabled: true
-    path: /api/health
-    portName: http
+    httpGet:
+      path: /api/health
+      port: http
     initialDelaySeconds: 20
     periodSeconds: 10
 
   readinessProbe:
-    enabled: true
-    path: /api/health
-    portName: http
+    httpGet:
+      path: /api/health
+      port: http
     initialDelaySeconds: 5
     periodSeconds: 10
 
