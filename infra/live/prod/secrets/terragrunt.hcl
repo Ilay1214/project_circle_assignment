@@ -60,11 +60,17 @@ inputs = {
   secret_store_name          = "aws-secrets-manager"
   sa_name                    = "external-secrets"
   sa_namespace               = "external-secrets"
-  mysql_ca_property          = "ca"
+  mysql_ca_property          = "MYSQL_CA_CERT"
   namespaces = { 
     prod = { 
       name       = "quiz-ai-prod"
-      remote_key = "quiz-ai/prod/app-env"
+      remote_key = "prod/quiz-ai"
     } 
   } 
+}
+
+dependencies {
+  paths = [
+    "../k8s/external-secrets"
+  ]
 }

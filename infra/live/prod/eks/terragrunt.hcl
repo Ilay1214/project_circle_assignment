@@ -45,8 +45,8 @@ inputs = {
     instance_types = ["t3.medium"]
     min_size = 1
     max_size = 2
-    desired_size = 1
+    desired_size = 2
     capacity_type = "ON_DEMAND"
     ami_type = "AL2_x86_64"
-    kubernetes_version = "1.31"
+    kubernetes_version = "1.29"
 }
