@@ -21,7 +21,7 @@ ingress:
 
 #backend values
 backend:
-  replicaCount: 2
+  replicaCount: 1
 
   image:
     repository: ilay906/quiz-ai-backend
